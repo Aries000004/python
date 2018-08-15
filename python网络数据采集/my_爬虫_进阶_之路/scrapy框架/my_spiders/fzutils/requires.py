@@ -57,4 +57,12 @@ install_requires = [
     'scikit-image',
     'wordcloud',            # 词云
     'pygame',
+    'appium-python-client',
+    'python-docx',
+    'Jinja2',
+    'elasticsearch',
+    'elasticsearch_dsl',
+    'salt',
+    # 'sip',
+    # 'pyqt5',
 ]

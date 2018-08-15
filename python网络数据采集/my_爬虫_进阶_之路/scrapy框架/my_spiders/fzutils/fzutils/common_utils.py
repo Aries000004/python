@@ -28,6 +28,10 @@ __all__ = [
 
     # img
     'save_base64_img_2_local',                                  # 存储类似data:image/jpg;base64,xxxxxx的图片到本地
+
+    # obj
+    'save_obj',                                                 # 将对象持久化到本地, 方便直接调试
+    'get_obj',                                                  # 使用该持久化对象进行调试
 ]
 
 def json_2_dict(json_str, logger=None, encoding=None):
@@ -109,16 +113,16 @@ def _print(**kwargs):
     log_level = kwargs.get('log_level', 1)     # 日志等级(默认'info')
     exception = kwargs.get('exception', None)
 
-    if not logger:
-        if not exception:
+    if logger is None:
+        if exception is None:
             print(msg)
         else:
-            if not msg:
+            if msg is not None:
                 print(msg, exception)
             else:
                 print(exception)
     else:
-        if not msg:
+        if msg is not None:
             if isinstance(msg, str):
                 if isinstance(log_level, int):
                     if log_level == 1:
@@ -132,7 +136,7 @@ def _print(**kwargs):
             else:
                 raise TypeError('log模式打印时, msg必须是str!')
 
-        if not exception:
+        if exception is not None:
             if isinstance(exception, Exception):
                 logger.exception(exception)
             else:
@@ -271,3 +275,29 @@ def len_pro(obj):
 
     return max(0, total_length - current_position)
 
+def save_obj(obj, file_name):
+    '''
+    将对象持久化到本地, 方便直接调试
+    :param obj:
+    :param file_name:
+    :return:
+    '''
+    try:
+        import cPickle as pickle
+    except ImportError:
+        import pickle
+
+    pickle.dump(obj, open(file_name, "w"))
+
+def get_obj(file_name):
+    '''
+    使用该持久化对象进行调试
+    :param file_name:
+    :return:
+    '''
+    try:
+        import cPickle as pickle
+    except ImportError:
+        import pickle
+
+    return pickle.load(open(file_name))

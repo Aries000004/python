@@ -27,6 +27,9 @@ __all__ = [
     'is_ipv4',                                              # 判断是否为ipv4地址
     'is_ipv6',                                              # 判断是否为ipv6地址
     'get_local_free_port',                                  # 随机获取一个可以被绑定的空闲端口
+
+    # html
+    'html_entities_2_standard_html',                        # 将html实体名称/实体编号转为html标签
 ]
 
 def _get_url_contain_params(url, params):
@@ -180,6 +183,7 @@ def get_random_phone_ua():
         'Mozilla/5.0 (Linux; Android 5.1; m3 note Build/LMY47I; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/48.0.2564.116 Mobile Safari/537.36 T7/9.3 baiduboxapp/9.3.0.10 (Baidu; P1 5.1)',
         'Mozilla/5.0 (Linux; U; Android 7.0; zh-CN; SM-G9550 Build/NRD90M) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/40.0.2214.89 UCBrowser/11.7.0.953 Mobile Safari/537.36',
         'Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.34 (KHTML, like Gecko) Mobile/15A5341f APP_USER/quanmama(ios_5.3.2)',
+        'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Mobile Safari/537.36',
     ]
 
     return choice(PHONE_HEADERS)
@@ -251,4 +255,26 @@ def get_local_free_port():
 
     return port
 
+def html_entities_2_standard_html(html_body):
+    '''
+    将html实体名称/实体编号转为html标签
+    :param html_body:
+    :return:
+    '''
+    char_entities = (
+        ('&nbsp;', ' '),
+        ('&#160;', ' '),
+        ('&lt;', '<'),
+        ('&#60;', '<'),
+        ('&gt;', '>'),
+        ('&#62;', '>'),
+        ('&amp;', '&'),
+        ('&#38;', '&'),
+        ('&quot;', '"'),
+        ('&#34;', '"'),
+    )
 
+    for item in char_entities:
+        html_body = html_body.replace(item[0], item[1])
+
+    return html_body

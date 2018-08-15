@@ -244,5 +244,62 @@ $ docker logs [container ID or NAMES]
 rvictl -s [uuid]
 ```
 
+## 安装appium
+下载地址: https://github.com/appium/appium-desktop/releases
+
+java jdk下载地址: http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+
+android studio下载地址: http://tools.android-studio.org/
+```bash
+### ios真机
+$ brew install carthage
+# Appium iOS真实设备支持取决于中央第三方软件套件 libimobiledevice
+$ brew install libimobiledevice
+$ brew install node
+# Appium对使用Xcode 8+运行iOS 9.3及更高版本的真实设备的支持也依赖于ios-deploy
+$ brew install ios-deploy
+# 对于混合或Web测试，您还需要遵循 ios-webkit-debug-proxy 设置说明
+$ brew install ios-webkit-debug-proxy
+
+```
+```bash
+### android
+$ brew install npm
+$ npm install wd
+# adb
+$ brew cask install android-platform-tools
+
+# 安装Genymotion模拟器
+http://www.genymotion.net/
+# 上诉模拟器依靠virtualbox, 请先下载
+https://www.virtualbox.org/wiki/Downloads
+# Genymotion无法安装apk解决方案
+https://blog.csdn.net/xiaolong20081/article/details/79204251
+# 下载5.1_Lolli... 
+链接：http://pan.baidu.com/s/1skPELxN 密码：086j
+
+# 查看连接状况
+$ adb devices -l
+
+# 需要配置启动App时的Desired Capabilities参数，
+# 它们分别是platformName、deviceName、appPackage、appActivity。
+platformName：它是平台名称，需要区分Android或iOS，此处填写Android。
+deviceName：它是设备名称，此处是手机的具体类型。(model: 之间的参数 device:)
+appPackage：它是App程序包名。
+appActivity：它是入口Activity名，这里通常需要以'.'开头。
+```
+
+## android逆向
+
+## 安装dash
+
+## qt designer + pycharm开发GUI
+首先下载qt最新安装包.dmg, 并安装
+
+流程可参考: https://www.jianshu.com/p/094928ac0b73
+```bash
+$ pip3 install pyqt5
+```
+
 ## 安装网易云音乐
 https://music.163.com/#/download

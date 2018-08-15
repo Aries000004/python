@@ -1,3 +1,11 @@
+```bash
+███████╗███████╗██╗   ██╗████████╗██╗██╗     ███████╗
+██╔════╝╚══███╔╝██║   ██║╚══██╔══╝██║██║     ██╔════╝
+█████╗    ███╔╝ ██║   ██║   ██║   ██║██║     ███████╗
+██╔══╝   ███╔╝  ██║   ██║   ██║   ██║██║     ╚════██║
+██║     ███████╗╚██████╔╝   ██║   ██║███████╗███████║
+╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚═╝╚══════╝╚══════╝                                                   
+```
 [![Build Status](https://travis-ci.org/EasyWeChat/site.svg?branch=master)](https://github.com/superonesfazai/fzutils)
 [![GitHub license](https://img.shields.io/github/license/superonesfazai/fzutils.svg)](https://github.com/superonesfazai/fzutils/blob/master/LICENSE.txt)
 [![GitHub forks](https://img.shields.io/github/forks/superonesfazai/fzutils.svg)](https://github.com/superonesfazai/fzutils/network)
@@ -81,7 +89,7 @@ from logging import INFO, ERROR
 logger = set_logger(log_file_name='path', console_log_level=INFO, file_log_level=ERROR)
 ```
 ```python
-from fzutils.linux_utils import auto_git
+from fzutils.auto_ops_utils import auto_git
 
 # 自动化git
 auto_git(path='xxx/path')
@@ -147,11 +155,11 @@ from fzutils.auto_ops_utils import (
     remote_decompress_folders,)
 from fabric.connection import Connection
 
-connect_object = Connection()
+connect_obj = Connection()
 # local 与 server端 上传或下载文件
 upload_or_download_files(
     method='put',
-    connect_object=connect_object,
+    connect_object=connect_obj,
     local_file_path='/Users/afa/myFiles/tmp/my_spider_logs.zip',
     remote_file_path='/root/myFiles/my_spider_logs.zip'
 )
@@ -163,7 +171,7 @@ local_compress_folders(
 )
 # 远程解压zip文件
 remote_decompress_folders(
-    connect_object=connect_object,
+    connect_object=connect_obj,
     folders_path='/root/myFiles/my_spider_logs.zip',
     target_decompress_path='/root/myFiles/'
 )
@@ -173,6 +181,71 @@ from fzutils.common_utils import json_2_dict
 
 # json转dict, 处理部分不规范json
 _dict = json_2_dict(json_str='json_str', logger=logger, encoding='utf-8')
+```
+```python
+from fzutils.auto_ops_utils import judge_whether_file_exists
+from fabric.connection import Connection
+
+connect_obj = Connection()
+# 判断server文件是否存在
+result = judge_whether_file_exists(connect_object=connect_obj, file_path='file_path')
+```
+```python
+from fzutils.email_utils import FZEmail
+
+_ = FZEmail(user='xxx', passwd='密码 or smtp授权码')
+_.send_email(to=['xxx@gmail.com',], subject='邮件正文', text='邮件内容')
+```
+```python
+from requests import sessions
+from fzutils.common_utils import (
+    save_obj,
+    get_obj,)
+
+s = sessions()
+# 对象持久化存储
+save_obj(s, 's.txt')
+get_obj('s.txt')
+```
+```python
+from fzutils.data.str_utils import (
+    char_is_chinese,
+    char_is_alphabet,
+    char_is_number,
+    char_is_other,)
+
+# 单字符判断其类型
+print(char_is_chinese('你'))
+print(char_is_alphabet('a'))
+print(char_is_number('1'))
+print(char_is_other('_'))
+```
+```python
+from fzutils.algorithm_utils import merge_sort
+
+# 归并排序
+print(merge_sort([-1, 2, 1]))
+# 还有很多其他排序方法
+```
+```python
+from fzutils.spider.auto import auto_generate_crawler_code
+
+# 爬虫基本代码自动生成器
+auto_generate_crawler_code()
+"""
+shell输出如下: 
+#--------------------------------
+# 爬虫模板自动生成器 by super_fazai
+#--------------------------------
+@@ 下面是备选参数, 无输入则取默认值!!
+请输入author:super_fazai
+请输入email:superonesfazai@gmail.com
+请输入创建的文件名(不含.py):fz_spider_demo
+请输入class_name:FZSpiderDemo
+
+创建爬虫文件fz_spider_demo.py完毕!
+enjoy!🍺
+"""
 ```
 ```python
 # 还有很多其他常用函数, 待您探索...

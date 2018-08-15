@@ -8,6 +8,8 @@
 '''
 
 """
+移动端https抓取: mitm.it下载认证插件
+fn+鼠标左键来copy
 启动方式:
     mitmproxy -s 截获response_demo.py
 """
@@ -37,6 +39,18 @@ class Writer:
 # path = os.path.dirname(__file__) + '/tmp_flow.txt'
 # # print(path)
 # addons = [Writer(path=path)]
+
+class Counter:
+    def __init__(self):
+        self.num = 0
+
+    def request(self, flow: http.HTTPFlow):
+        self.num = self.num + 1
+        ctx.log.info("We've seen %d flows" % self.num)
+
+addons = [
+    Counter(),
+]
 
 def request(flow: http.HTTPFlow):
     # redirect to different host
